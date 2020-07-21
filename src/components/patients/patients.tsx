@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { getAppointment } from '../../store/action'
+import AppDialog from '../../common/components/ui/dialog/appDialog'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -53,10 +54,27 @@ const useStyles = makeStyles({
     container: {
         maxHeight: 440,
     },
-    head: {
-        backgroundColor: "#ccc"
-    },
 });
+
+const dialogConfigData = [
+    {
+        upload: {
+            title: 'Upload Document'
+        }
+    },
+    {
+        view: {
+            title: 'View Document'
+        }
+    },
+    {
+        paperwork: {
+            title: 'Complete Paperwork'
+        }
+    }
+    
+]
+
 
 function Patients(props: any) {
     const classes = useStyles();
@@ -78,13 +96,40 @@ function Patients(props: any) {
     };
 
     const [rows, setRows] = useState<Data[]>([]);
+    const [isDialogOpen, setisDialogOpen] = useState(false);
+    const [dialogConfig, setisdialogConfig] = useState(dialogConfigData);
+    const [dialogConfigDataOnClick, setdialogConfigDataOnClick] = useState(Object);
 
     useEffect(() => {
-        dispatch(getAppointment())        
-    }, [])
+        dispatch(getAppointment())    
+    }, []);
 
+    const openDialog =  (data: any) => {
+        setisDialogOpen(true);
+        if (data === 'upload') {
+            setdialogConfigDataOnClick(dialogConfig[0].upload)
+        } else if (data === 'view') {
+            setdialogConfigDataOnClick(dialogConfig[1].view)
+        } else {
+            setdialogConfigDataOnClick(dialogConfig[2].paperwork)
+        }
+        
+    }
+
+    const closeDialog = () => {
+        setisDialogOpen(false)
+    }
+
+    const uploadDocumentCotent = (
+        <h1>Upload document</h1>
+    )
+
+    const viewDocumentContent = (
+        <h1>view document</h1>
+    )
 
     return (
+      
         <>
             <h3>Upcoming Appointments</h3>
             <Paper className={classes.root}>
@@ -96,7 +141,6 @@ function Patients(props: any) {
                                     <TableCell
                                         key={column.id}
                                         align={column.align}
-                                        className={classes.head}
                                         style={{ minWidth: column.minWidth }}>
                                         {column.label}
                                     </TableCell>
@@ -112,8 +156,11 @@ function Patients(props: any) {
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
                                                     {column.format && typeof value === 'number' ? column.format(value) : value}
-                                                    {column.id === 'action' && <> <Tooltip title="Complete Paperwork"><PostAddIcon className="cursor-p" /></Tooltip> <Tooltip title="Upload Document"><CloudUploadIcon className="cursor-p" /></Tooltip> <Tooltip title="View Document"><VisibilityIcon className="cursor-p" /></Tooltip> </> } 
-                                                </TableCell>
+                                                    {column.id === 'action' && <> 
+                                                        <Tooltip title="Complete Paperwork"><PostAddIcon className="cursor-p" onClick={() => openDialog('paperwork')}  /></Tooltip> 
+                                                        <Tooltip title="Upload Document"><CloudUploadIcon className="cursor-p" onClick={() => openDialog('upload')} /></Tooltip> 
+                                                        <Tooltip title="View Document"><VisibilityIcon className="cursor-p" onClick={() => openDialog('view')} /></Tooltip> </> } 
+                                                </TableCell> 
                                                 
                                             );
                                         })}
@@ -133,6 +180,11 @@ function Patients(props: any) {
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </Paper>
+            { isDialogOpen &&  
+            <AppDialog dialogConfig={dialogConfigDataOnClick} isOpenDialog={isDialogOpen} closeDialog={closeDialog}> 
+                <h2>Upload your patient`s paperwork!</h2>  
+            </AppDialog>
+            }
         </>
     )
 }
