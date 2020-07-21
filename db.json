@@ -1,0 +1,148 @@
+{
+    "appointments": [
+        {
+            "id": 1,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "10:30am"
+        },
+        {
+            "id": 2,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "9:30am"
+        },
+        {
+            "id": 3,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 4,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 5,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 6,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 7,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 8,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 9,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 10,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 11,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 12,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 13,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 14,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 15,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 16,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 17,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        },
+        {
+            "id": 18,
+            "location": "Hollywood",
+            "modality": "MRI",
+            "exam": "ANKLE W/O",
+            "date": "07-20-2020",
+            "time": "8:30am"
+        }
+    ]
+}

@@ -1,0 +1,3 @@
+export {
+    getAppointment
+} from './appointment'
