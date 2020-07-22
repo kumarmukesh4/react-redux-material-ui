@@ -1,11 +1,9 @@
 import { API_BASE_PATH } from '../constant/constants';
 
-const APP_API = {
-    USER: () => {
-        return API_BASE_PATH
-    }
+const API_URL = {
+    APPOINTENTS: `${API_BASE_PATH()}/appointments`
 }    
 
 export {
-    APP_API
+    API_URL
 }

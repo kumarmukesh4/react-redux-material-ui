@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_URL } from '../../common/config'
 
 import {
     GET_APPOINTMENT_LIST_START,
@@ -33,7 +34,8 @@ const getAppointmentListFail = () => {
 const getAppointment = () => {
     return (dispatch: any) => {
         dispatch(getAppointmentListStart());
-        axios.get('http://localhost:3003/appointments')   
+        let url = API_URL['APPOINTENTS'];
+        axios.get(url)   
             .then((res) => {
                 dispatch(getAppointmentListSuccess(res.data));
             }) 

@@ -1,5 +1,5 @@
 const API_BASE_PATH = () => {
-    let url = 'https://jsonplaceholder.typicode.com/';
+    let url = 'http://localhost:3000';
     return url;
 }    
 
