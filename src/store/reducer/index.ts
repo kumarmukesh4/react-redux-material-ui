@@ -1,5 +1,7 @@
 import AppointmentReducer from './appointmentReducer'
+import authReducer from './authReducer'
 
 export {
-    AppointmentReducer
+    AppointmentReducer,
+    authReducer
 };

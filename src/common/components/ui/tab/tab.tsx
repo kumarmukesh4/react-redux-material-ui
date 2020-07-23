@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import './tab.scss';
+import PatientForm from '../form/patient/patientForm';
+import PhysicianForm from '../form/physician/physicianForm';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-function AppTabs() {
+function AppTabs(props: any) {
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
@@ -62,6 +64,10 @@ function AppTabs() {
     const handleChangeIndex = (index: number) => {
         setValue(index);
     };
+
+    useEffect(() => {
+         
+    }, [])
 
     return (
         <div className={classes.root}>
@@ -83,10 +89,10 @@ function AppTabs() {
                 index={value}
                 onChangeIndex={handleChangeIndex}>
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    Physician Form
+                    <PhysicianForm />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    Patient Form
+                    <PatientForm />
                  </TabPanel>
                
             </SwipeableViews>

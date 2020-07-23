@@ -23,9 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
             right: 0,
             top: 0,
             bottom: 0,
-            height: '400px',
+            height: '500px',
             [theme.breakpoints.down('sm')]: {
                 width: '100%',
+                position: 'relative'
             }
         },
         details: {

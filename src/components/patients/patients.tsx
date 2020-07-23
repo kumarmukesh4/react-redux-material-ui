@@ -79,8 +79,8 @@ const dialogConfigData = [
 function Patients(props: any) {
     const classes = useStyles();
 
-    const APPOINTMENT_LIST = useSelector((state: any) => state.appointmentList);
-    const isLoading = useSelector((state: any) => state.loading);
+    const APPOINTMENT_LIST = useSelector((state: any) => state.appointment.appointmentList);
+    const isLoading = useSelector((state: any) => state.appointment.loading);
     const dispatch = useDispatch();
 
     const [page, setPage] = React.useState(0);

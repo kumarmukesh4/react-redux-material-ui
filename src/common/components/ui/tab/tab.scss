@@ -2,3 +2,14 @@
     background-color: transparent !important;
     box-shadow: none !important;
 }
+
+.forgot-password {
+    color: #61dafb;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.MuiTabs-indicator {
+    background-color: #61dafb !important;
+}
