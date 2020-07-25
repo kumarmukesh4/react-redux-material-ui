@@ -1,15 +1,29 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #f6f7f9 !important;
+  // background-color: #f6f7f9 !important;
   font-family: Muli,Roboto,"Helvetica",Arial,sans-serif;
 }
 
 .content-container {
   padding-left: 20px;
   padding-right: 20px;
+  margin-top: 88px;
+  margin-bottom: 40px;
 }
 
 .cursor-p {
   cursor: pointer;
+}
+
+.module-heading {
+  text-align: left;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: normal;
+}
+
+@media only screen and (max-width: 600px) {
+  .content-container {
+    padding: 0;
+  }
 }

@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { getAppointment } from '../../store/action'
 import AppDialog from '../../common/components/ui/dialog/appDialog'
-
-import { makeStyles } from '@material-ui/core/styles';
+import StylesProvider from '@material-ui/styles/StylesProvider';
+import { makeStyles, MuiThemeProvider, createMuiTheme, Theme, createStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,6 +17,15 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import { Tooltip } from '@material-ui/core';
+import PatientData from './patientData';
+import Grid from '@material-ui/core/Grid';
+import InputBase from '@material-ui/core/InputBase';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+
+import './patients.scss'
+import Statistics from '../statistics/statistics';
+import FinalizedExam from '../finalizedExam/finalizedExam';
 
 
 interface Column {
@@ -46,6 +55,26 @@ interface Data {
     action: string
 }
 
+const theme = createMuiTheme({
+    overrides: {
+        MuiGrid: {
+            item: {
+                backgroundColor: 'transparent',
+            },
+            'grid-xs-1': {
+                '@media (min-width:1490px)': {
+                    maxWidth: '32%!important',
+                    flexBasis: '32% !important',
+                },
+                '@media (max-width:600px)': {
+                    maxWidth: '100%!important',
+                    flexBasis: '100% !important',
+                    margin: 0
+                }
+            },
+        },
+    },
+});
 
 const useStyles = makeStyles({
     root: {
@@ -54,7 +83,35 @@ const useStyles = makeStyles({
     container: {
         maxHeight: 440,
     },
+    statiscs: {
+        width: '31%',
+        '@media(max-width: 600px)': {
+            width: '100%'
+        }
+    }
 });
+
+const useStyles2 = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            padding: '2px 4px',
+            display: 'inline-flex',
+            alignItems: 'right',
+            width: 400,
+        },
+        input: {
+            marginLeft: theme.spacing(1),
+            flex: 1,
+        },
+        iconButton: {
+            padding: 10,
+        },
+        divider: {
+            height: 28,
+            margin: 4,
+        },
+    }),
+);
 
 const dialogConfigData = [
     {
@@ -72,12 +129,13 @@ const dialogConfigData = [
             title: 'Complete Paperwork'
         }
     }
-    
+
 ]
 
 
 function Patients(props: any) {
     const classes = useStyles();
+    const classes2 = useStyles2();
 
     const APPOINTMENT_LIST = useSelector((state: any) => state.appointment.appointmentList);
     const isLoading = useSelector((state: any) => state.appointment.loading);
@@ -101,10 +159,10 @@ function Patients(props: any) {
     const [dialogConfigDataOnClick, setdialogConfigDataOnClick] = useState(Object);
 
     useEffect(() => {
-        dispatch(getAppointment())    
+        dispatch(getAppointment())
     }, []);
 
-    const openDialog =  (data: any) => {
+    const openDialog = (data: any) => {
         setisDialogOpen(true);
         if (data === 'upload') {
             setdialogConfigDataOnClick(dialogConfig[0].upload)
@@ -113,7 +171,7 @@ function Patients(props: any) {
         } else {
             setdialogConfigDataOnClick(dialogConfig[2].paperwork)
         }
-        
+
     }
 
     const closeDialog = () => {
@@ -128,64 +186,123 @@ function Patients(props: any) {
         <h1>view document</h1>
     )
 
+    const statisticData = [
+        {
+            title: 'Upcoming Appointments',
+            count: 6
+        },
+        {
+            title: 'Finalized Exams',
+            count: 6
+        },
+        {
+            title: 'Canceled & No show Exams',
+            count: 15
+        }
+    ]
+
+    const finalizedExamData = [
+        {
+            exam: 'New Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310
+        },
+        {
+            exam: 'Middle Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310
+        },
+        {
+            exam: 'Fianal Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310
+        },
+        {
+            exam: 'Semi Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310
+        },
+        {
+            exam: 'Semi Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310
+        },
+        {
+            exam: 'Semi Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310
+        }
+    ]
+
     return (
-      
-        <>
-            <h3>Upcoming Appointments</h3>
-            <Paper className={classes.root}>
-                <TableContainer className={classes.container}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}>
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {APPOINTMENT_LIST.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
-                                                    {column.id === 'action' && <> 
-                                                        <Tooltip title="Complete Paperwork"><PostAddIcon className="cursor-p" onClick={() => openDialog('paperwork')}  /></Tooltip> 
-                                                        <Tooltip title="Upload Document"><CloudUploadIcon className="cursor-p" onClick={() => openDialog('upload')} /></Tooltip> 
-                                                        <Tooltip title="View Document"><VisibilityIcon className="cursor-p" onClick={() => openDialog('view')} /></Tooltip> </> } 
-                                                </TableCell> 
-                                                
-                                            );
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={APPOINTMENT_LIST.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-            </Paper>
-            { isDialogOpen &&  
-            <AppDialog dialogConfig={dialogConfigDataOnClick} isOpenDialog={isDialogOpen} closeDialog={closeDialog}> 
-                <h2>Upload your patient`s paperwork!</h2>  
-            </AppDialog>
+
+        <div style={{ textAlign: 'center' }}>
+
+            <h3 className="module-heading">Statistics</h3>
+
+            {
+                statisticData.map((item: any) => {
+                    return <Grid className={classes.statiscs} item xs={1} sm={6} md={3} lg={2} style={{ display: 'inline-block', margin: '10px', textAlign: 'center' }}>
+                        <Statistics statistic={item} />
+                    </Grid>
+                })
             }
-        </>
+
+
+            <h3 className="module-heading">Upcoming Appointments</h3>
+            {
+                APPOINTMENT_LIST.map((item: any) => {
+                    return <MuiThemeProvider theme={theme} key={item.id}>
+                        <StylesProvider>
+                            <Grid item xs={1} sm={6} md={3} lg={2} style={{ display: 'inline-block', margin: '10px', textAlign: 'left' }}>
+                                <PatientData appointmentData={item} opendialog={openDialog}/>
+                            </Grid>
+                        </StylesProvider>
+                    </MuiThemeProvider>
+
+                })
+            }
+
+            <h3 className="module-heading">Finalized Exams</h3>
+            <div className="search-bar">
+                <Paper component="form" className={classes2.root}>
+                    <InputBase
+                        className={classes2.input}
+                        placeholder="Please enter 3 letters of any exam to search"
+                        inputProps={{ 'aria-label': 'search google maps' }}
+                    />
+                    <IconButton type="submit" className={classes2.iconButton} aria-label="search">
+                        <SearchIcon />
+                    </IconButton>
+                </Paper>
+            </div>
+            {
+                finalizedExamData.map((item: any) => {
+                    return <Grid className={classes.statiscs} item xs={1} sm={6} md={3} lg={2} style={{ display: 'inline-block', margin: '10px', textAlign: 'center' }}>
+                             <FinalizedExam finalizedExamData={item} />
+                            </Grid>
+                })
+            }
+
+
+            {isDialogOpen &&
+                <AppDialog dialogConfig={dialogConfigDataOnClick} isOpenDialog={isDialogOpen} closeDialog={closeDialog}>
+                    <h2>Upload your patient`s paperwork!</h2>
+                </AppDialog>
+            }
+        </div>
     )
 }
 

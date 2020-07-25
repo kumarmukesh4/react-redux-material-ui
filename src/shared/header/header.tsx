@@ -164,7 +164,7 @@ function Header() {
     );
     return (
         <>
-            <AppBar position="static" className="app-header">
+            <AppBar position="fixed" className="app-header">
                 <Toolbar>
                     <img className="logo" src={String(logo)} />
                     <Typography className={classes.title} variant="h6" noWrap></Typography>

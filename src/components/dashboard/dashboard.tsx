@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {
     Switch,
     Route,
@@ -12,6 +12,10 @@ const Physician = React.lazy(() => import('./../physician/physician'));
 
 function Dashboard(props: any) {
     let { path } = useRouteMatch();
+
+    useEffect(() => {
+        document.body.style.backgroundColor = "#f6f7f9";
+    })
     return (
         <>
             <Switch>

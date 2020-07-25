@@ -1,0 +1,26 @@
+.date-row {
+    font-size: 14px;
+    width: 250px;
+    span {
+        &:last-child {
+            padding: 0 20px;
+        }
+        
+    }
+}
+.location-row {
+    display: block;
+}
+.button-row {
+    justify-content: center;
+    button {
+        font-size: 11px;
+    }
+}
+
+.makeStyles-root-34 {
+    max-width: 100%
+}
+.search-bar {
+    text-align: right;
+}
