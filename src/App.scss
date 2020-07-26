@@ -20,6 +20,34 @@ body {
   text-align: left;
   color: rgba(0, 0, 0, 0.87);
   font-weight: normal;
+  margin-top: 0;
+}
+
+.column-row {
+  display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+  margin: 5px 0;
+  &.two-column {
+    .col {
+      flex: 1;
+      margin: 2px;
+    }  
+  }
+  &.three-column {
+    .col {
+      flex: 1;
+      margin: 2px;
+    }  
+  }
+}
+
+.icons {
+  color: rgba(0,0,0,0.4);
+  margin: 0 1px;
+  &:hover {
+    color: rgba(0,0,0,0.70);
+  }
 }
 
 @media only screen and (max-width: 600px) {

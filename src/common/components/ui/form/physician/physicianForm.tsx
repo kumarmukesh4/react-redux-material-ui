@@ -13,7 +13,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import PersonIcon from '@material-ui/icons/Person';
 
 import {Link, useHistory  } from 'react-router-dom'
 import { localStore } from '../../../../services'
@@ -52,6 +53,7 @@ const ColorButton = withStyles((theme: Theme) => ({
   }))(Button);
 
 interface State {
+    userName: string;
     password: string;
     showPassword: boolean;
 }
@@ -64,6 +66,7 @@ function PhysicianForm(props: any) {
     const [isValidUsers, setisValidUsers] = useState(localStore.get('isValidUser'))
 
     const [values, setValues] = React.useState<State>({
+        userName: '',
         password: '',
         showPassword: false,
     });
@@ -95,7 +98,22 @@ function PhysicianForm(props: any) {
     return (
         <>
           <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="Enter your Username" variant="outlined" />
+                <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">Enter your Username</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-password"
+                        type="text"
+                        value={values.userName}
+                        onChange={handleChange('userName')}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <PersonIcon style={{color: '#838383', fontSize: '30px'}}/>
+                            </InputAdornment>
+                        }
+                        labelWidth={150}
+                    />
+                </FormControl>
+
                 <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput

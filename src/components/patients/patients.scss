@@ -1,11 +1,14 @@
 .date-row {
-    font-size: 14px;
-    width: 250px;
-    span {
+    font-size: 1.1rem;
+    font-weight: 700;
+    >span {
         &:last-child {
             padding: 0 20px;
         }
-        
+       span {
+           font-size: 0.8rem;
+           color: rgba(0, 0, 0, 0.34);
+       } 
     }
 }
 .location-row {
@@ -21,6 +24,35 @@
 .makeStyles-root-34 {
     max-width: 100%
 }
+
 .search-bar {
-    text-align: right;
+    text-align: center;
+}
+
+.MuiExpansionPanelSummary-expandIcon {
+    align-self: flex-start;
+    position: relative;
+    top: 14px;
+    padding: 0;
+}
+
+.column-row {
+    &.three-column {
+        .col {
+            &:nth-child(1) {
+                flex: 2
+            }
+            &:nth-child(2) {
+                flex: 3
+            }
+            &:last-child {
+                flex: 1.5;
+                text-align: right;
+            }
+        }
+    }
+}
+
+.icons {
+    font-size: 20px;
 }

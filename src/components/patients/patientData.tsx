@@ -13,6 +13,10 @@ import Divider from '@material-ui/core/Divider';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import { Tooltip } from '@material-ui/core';
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,13 +24,15 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%', 
         },
         heading: {
-            fontSize: theme.typography.pxToRem(15),
+            fontSize: theme.typography.pxToRem(12),
+            paddingTop: '3px'
         },
         modality: {
             backgroundColor: '#61dafb',
             padding: '3px 20px',
             borderRadius: '3px',
-            fontSize: '13px',
+            fontSize: '12px',
+            textAlign: 'center'
         },
         secondaryHeading: {
             fontSize: theme.typography.pxToRem(15),
@@ -39,9 +45,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         details: {
             alignItems: 'center',
+            padding: '0px 16px 16px',
+            position: 'relative',
+            top: '-8px'
         },
         column: {
-            flexBasis: '33.33%',
+            flexBasis: '100%',
         },
         helper: {
             borderLeft: `2px solid ${theme.palette.divider}`,
@@ -53,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
             '&:hover': {
                 textDecoration: 'underline',
             },
-        },
+        }
     }),
 );
 
@@ -86,26 +95,37 @@ function PatientData(props: any) {
     return (
         <>
 
-            <ExpansionPanel defaultExpanded>
-                <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
+            <ExpansionPanel defaultExpanded ={false}  >
+                <ExpansionPanelSummary 
+                    expandIcon={<ExpandMoreIcon  />}
                     aria-controls="panel1c-content"
                     id="panel1c-header">
                     <div className={classes.column}>
-                        <Typography className={classes.heading}><strong>{appointmentData.exam}</strong></Typography>
                         <div className="date-row">
                           <span className="date-txt">
-                            <DateRangeIcon /> {appointmentData.date}
+                             <span>Date:</span> {appointmentData.date}
                           </span>
                           <span className="time-txt">
-                           <AccessTimeIcon /> {appointmentData.time}
+                           <span>Time:</span> {appointmentData.time}
                           </span>
                         </div>
+                        <div className="column-row three-column">
+                            <div className="col">
+                                <Typography className={classes.modality}>{appointmentData.modality} </Typography>
+                            </div>
+                            <div className="col">
+                                 <Typography className={classes.heading}><strong>{appointmentData.exam}</strong></Typography>
+                            </div>
+                            <div className="col">
+                                <Tooltip title="Complete Paperwork"><PostAddIcon className="cursor-p icons"  /></Tooltip> 
+                                <Tooltip title="Upload Document"><CloudUploadIcon className="cursor-p icons" /></Tooltip> 
+                                <Tooltip title="View Document"><VisibilityIcon className="cursor-p icons" /></Tooltip>
+                            </div>    
+                        </div>
                     </div>
+                   
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.details}>
-                    <Typography className={classes.modality}>{appointmentData.modality}</Typography>
-                </ExpansionPanelDetails>
+                
                 <ExpansionPanelDetails className={classes.details}>
                     <div className="location-row"><LocationOnIcon />  Location: {appointmentData.location}</div>
                 </ExpansionPanelDetails>

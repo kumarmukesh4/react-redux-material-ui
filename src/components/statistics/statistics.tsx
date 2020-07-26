@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
     root: {
         maxWidth: '100%',
+        margin: '10px 0'
     },
     heading: {
         fontWeight: 500,
@@ -38,7 +39,7 @@ function Statistics(props: any) {
                             {statistic.title}
                     </Typography>
                     <Typography className={classes.count} variant="body2" color="textSecondary" component="p">
-                        {statistic.count}
+                        <span style={{color: statistic.color}}>{statistic.count}</span>
                     </Typography>
                     </CardContent>
                 </CardActionArea>

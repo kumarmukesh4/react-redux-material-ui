@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import DirectionsIcon from '@material-ui/icons/Directions';
 
- 
+
 
 import './finalizedExam.scss';
 
@@ -35,60 +35,57 @@ const useStyles = makeStyles({
 });
 
 function FinalizedExam(props: any) {
-    const { finalizedExamData } = props; 
+    const { finalizedExamData } = props;
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
 
     const ColorButtonAction = withStyles((theme: Theme) => ({
         root: {
-          color: '#fff',
-          backgroundColor: '#3f51b5',
-          '&:hover': {
+            color: '#fff',
             backgroundColor: '#3f51b5',
-          },
-          fontSize: '11px'
+            '&:hover': {
+                backgroundColor: '#3f51b5',
+            },
+            fontSize: '11px'
         },
-      }))(Button);
+    }))(Button);
 
     return (
         <>
-         
+
             <Card className={classes.root}>
                 <CardContent>
                     <table className="finalized-exam-tbl">
                         <tr>
                             <td>
+                                <div className="finalized-heading">Schedule Date</div>
+                                <span className="finalized-data">{finalizedExamData.schduleDate}</span>
+
+                            </td>
+                            <td>
+                                <div className="finalized-heading">Modality</div>
+                                <span className="finalized-data">{finalizedExamData.modality}</span>
+                            </td>
+                            <td>
+
                                 <div className="finalized-heading">Exam</div>
                                 <span className="finalized-data">{finalizedExamData.exam}</span>
                             </td>
-                            <td colSpan={2}>
-                                <div className="finalized-heading">Schedule Date</div>
-                                <span className="finalized-data">{finalizedExamData.schduleDate}</span>
-                                 
-                            </td>
                         </tr>
                         <tr>
                             <td>
-                                <div className="finalized-heading">Modality</div>
-                                <span className="finalized-data">{finalizedExamData.modality}</span> 
-                            </td>
-                            <td>
-                                <div className="finalized-heading">Ref.</div>
+                            <div className="finalized-heading">Ref.</div>
                                 <span className="finalized-data">{finalizedExamData.ref}</span>
                             </td>
                             <td>
-                                <div className="finalized-heading">Acc Number</div>
+                            <div className="finalized-heading">Acc Number</div>
                                 <span className="finalized-data">{finalizedExamData.acctNumber}</span>
                             </td>
-                        </tr>
-                        <tr>
-                            <td colSpan={2}>
-                                <div className="finalized-heading">Status: <ColorButtonAction variant="contained" color="primary">Red Final Report</ColorButtonAction></div>
-                            </td>
                             <td>
-                                <ColorButtonAction variant="contained" color="primary">Report</ColorButtonAction>
+                            <ColorButtonAction variant="contained" color="primary">Report</ColorButtonAction>
                             </td>
                         </tr>
+                        
                     </table>
                 </CardContent>
             </Card>

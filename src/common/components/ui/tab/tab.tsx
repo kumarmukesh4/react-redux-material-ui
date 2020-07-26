@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -27,10 +28,9 @@ function TabPanel(props: TabPanelProps) {
             hidden={value !== index}
             id={`full-width-tabpanel-${index}`}
             aria-labelledby={`full-width-tab-${index}`}
-            {...other}
-        >
+            {...other}>
             {value === index && (
-                <Box p={3}>
+                <Box p={2}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     root: {
         backgroundColor: theme.palette.background.paper,
         width: '100%',
-    },
+    }
 }));
 
 function AppTabs(props: any) {
@@ -65,9 +65,8 @@ function AppTabs(props: any) {
         setValue(index);
     };
 
-    useEffect(() => {
-         
-    }, [])
+    
+
 
     return (
         <div className={classes.root}>
@@ -78,8 +77,7 @@ function AppTabs(props: any) {
                     indicatorColor="primary"
                     textColor="primary"
                     variant="fullWidth"
-                    aria-label="full width tabs example"
-                >
+                    aria-label="full width tabs example">
                     <Tab label="PHYSICIAN & STAFF" {...a11yProps(0)} />
                     <Tab label="PATIENT" {...a11yProps(1)} />
                 </Tabs>

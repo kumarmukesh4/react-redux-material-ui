@@ -23,9 +23,12 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 
+
+
 import './patients.scss'
 import Statistics from '../statistics/statistics';
 import FinalizedExam from '../finalizedExam/finalizedExam';
+import TabContainer from '../../common/components/ui/tabContainer/tabContainer';
 
 
 interface Column {
@@ -248,6 +251,11 @@ function Patients(props: any) {
 
     return (
 
+        <>
+           <TabContainer /> 
+        </>
+
+        /*
         <div style={{ textAlign: 'center' }}>
 
             <h3 className="module-heading">Statistics</h3>
@@ -303,6 +311,7 @@ function Patients(props: any) {
                 </AppDialog>
             }
         </div>
+        */
     )
 }
 
