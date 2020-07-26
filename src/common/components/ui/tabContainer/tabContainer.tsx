@@ -124,16 +124,19 @@ function TabContainer() {
 
     const statisticData = [
         {
+            pos: 0,
             title: 'Upcoming Appointments',
             count: 6,
             color: '#2196f3'
         },
         {
+            pos: 1,
             title: 'Finalized Exams',
             count: 6,
             color: '#4caf50'
         },
         {
+            pos: 2,
             title: 'Canceled & No show Exams',
             count: 15,
             color: '#f44336'
@@ -185,6 +188,12 @@ function TabContainer() {
         }
     ]
 
+    const activateParentTab = (event: any) => {
+        let num =  Number(event.currentTarget.getAttribute('data-attr'));
+        setValue(num);
+        //console.log(pos.currentTarget.getAttribute('data-attr'));
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default" className="tab-style">
@@ -209,7 +218,7 @@ function TabContainer() {
                     <div className="column">
                         {
                             statisticData.map((item: any) => {
-                                return <Statistics statistic={item} />
+                                return <Statistics statistic={item} activateTab={activateParentTab} />
                             })
                         }
                     </div>
@@ -247,7 +256,7 @@ function TabContainer() {
                     <div className="column">
                         {
                             statisticData.map((item: any) => {
-                                return <Statistics statistic={item} />
+                                return <Statistics statistic={item} activateTab={activateParentTab} />
                             })
                         }
                     </div>
@@ -291,7 +300,7 @@ function TabContainer() {
                     <div className="column">
                         {
                             statisticData.map((item: any) => {
-                                return <Statistics statistic={item} />
+                                return <Statistics statistic={item} activateTab={activateParentTab} />
                             })
                         }
                     </div>

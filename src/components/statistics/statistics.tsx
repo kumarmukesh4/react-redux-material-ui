@@ -27,12 +27,14 @@ const useStyles = makeStyles({
 
 
 function Statistics(props: any) {
-    const {statistic} = props;
+    const {statistic, activateTab} = props;
     console.log(statistic);
     const classes = useStyles();
+    console.log(statistic.pos);
+    let pos = statistic.pos;
     return (
         <>
-            <Card className={classes.root}>
+            <Card className={classes.root} onClick={activateTab} data-attr={pos}>
                 <CardActionArea>
                     <CardContent>
                         <Typography className={classes.heading} gutterBottom variant="h5" component="h2">
