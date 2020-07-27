@@ -41,7 +41,7 @@ function DateTime() {
                         July
                      </Typography>
                     <Typography className={classes.date} variant="h5" component="h2" color="textSecondary">
-                        26
+                        27
                     </Typography>
                     <Typography className={classes.year} color="textSecondary">
                         2020

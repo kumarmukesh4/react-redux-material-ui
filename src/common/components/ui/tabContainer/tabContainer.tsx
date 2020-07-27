@@ -18,6 +18,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import FinalizedExam from '../../../../components/finalizedExam/finalizedExam';
 
 import DateTime from '../date-time/dateTime';
+import CancelledExam from '../../../../components/cancelledExam/cancelledExam';
 
 
 interface TabPanelProps {
@@ -188,6 +189,41 @@ function TabContainer() {
         }
     ]
 
+    const cancelledExamData = [
+        {
+            exam: 'New Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310,
+            status: 'Cancelled'
+        },
+        {
+            exam: 'Middle Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310,
+            status: 'Cancelled'
+        },
+        {
+            exam: 'Fianal Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310,
+            status: 'Cancelled'
+        },
+        {
+            exam: 'Semi Exam',
+            schduleDate: '10-13-2016',
+            modality: 'XRAY',
+            ref: 'ITPACSPRO',
+            acctNumber: 84310,
+            status: 'Cancelled'
+        }
+    ]
+
     const activateParentTab = (event: any) => {
         let num =  Number(event.currentTarget.getAttribute('data-attr'));
         setValue(num);
@@ -306,7 +342,17 @@ function TabContainer() {
                     </div>
 
                     <div className="column middle">
-                        <h2 className="module-heading">Canceled</h2>
+                        <h2 className="module-heading">Canceled Exam</h2>
+                        <div className="column-row two-column finalized-exam">
+                        {
+                            cancelledExamData.map((item: any) => {
+                                return  <div className="col" key={item.id}>
+                                    <CancelledExam cancelledExamData={item} />
+                                    
+                                </div>
+                            })
+                        }
+                        </div>
                     </div>
 
                     <div className="column">

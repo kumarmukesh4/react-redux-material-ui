@@ -137,7 +137,7 @@ function PhysicianForm(props: any) {
                     />
                 </FormControl>
                 <ColorButton variant="contained" color="primary" onClick={validateForm}>Login</ColorButton>
-                <div className="forgot-password">Forgot Your Password</div>
+               
             </form>
         </>
     )

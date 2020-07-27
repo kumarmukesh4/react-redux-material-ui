@@ -65,9 +65,6 @@ function AppTabs(props: any) {
         setValue(index);
     };
 
-    
-
-
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default" className="tab-style">

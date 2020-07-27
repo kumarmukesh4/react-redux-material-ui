@@ -5,6 +5,17 @@ body {
   font-family: Muli,Roboto,"Helvetica",Arial,sans-serif;
 }
 
+
+.m-t-10 {
+  margin-top: 10px;
+}
+.m-t-15 {
+  margin-top: 10px;
+}
+.m-t-20 {
+  margin-top: 20px;
+}
+
 .content-container {
   padding-left: 20px;
   padding-right: 20px;
@@ -47,6 +58,14 @@ body {
   margin: 0 1px;
   &:hover {
     color: rgba(0,0,0,0.70);
+  }
+}
+
+.link1 {
+  color: #61dafb;
+  cursor: pointer;
+  &:hover {
+      text-decoration: underline;
   }
 }
 

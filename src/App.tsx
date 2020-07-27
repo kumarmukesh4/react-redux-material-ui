@@ -16,7 +16,7 @@ function App() {
   const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
   //localStore.get('isValidUser')
   useEffect(() => {
-   
+    
   }, [])
 
   let routes = (

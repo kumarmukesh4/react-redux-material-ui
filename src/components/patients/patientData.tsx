@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Theme, createStyles, makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -67,9 +67,31 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
+const dialogConfigData = [
+    {
+        upload: {
+            title: 'Upload Document'
+        }
+    },
+    {
+        view: {
+            title: 'View Document'
+        }
+    },
+    {
+        paperwork: {
+            title: 'Complete Paperwork'
+        }
+    }
+
+]
+
 
 function PatientData(props: any) {
     const { appointmentData, opendialog } = props;
+    const [isDialogOpen, setisDialogOpen] = useState(false);
+    const [dialogConfig, setisdialogConfig] = useState(dialogConfigData);
+    const [dialogConfigDataOnClick, setdialogConfigDataOnClick] = useState(Object);
     const classes = useStyles();
 
     const ColorButton = withStyles((theme: Theme) => ({
@@ -91,6 +113,18 @@ function PatientData(props: any) {
           },
         },
       }))(Button);
+
+      const openDialog = (data: any) => {
+        setisDialogOpen(true);
+        if (data === 'upload') {
+            setdialogConfigDataOnClick(dialogConfig[0].upload)
+        } else if (data === 'view') {
+            setdialogConfigDataOnClick(dialogConfig[1].view)
+        } else {
+            setdialogConfigDataOnClick(dialogConfig[2].paperwork)
+        }
+
+    }
 
     return (
         <>

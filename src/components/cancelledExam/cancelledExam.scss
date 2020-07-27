@@ -1,0 +1,20 @@
+
+
+.cancelled-exam-tbl {
+    width: 100%;
+    td {
+        text-align: left;
+        padding: 7px 0;
+        .cancelled-heading {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.34);
+            font-weight: 700;
+        }
+        
+        .cancelled-data {
+            font-size: 12px;
+            color: #000;
+            font-weight: 700;
+        }
+    }
+}

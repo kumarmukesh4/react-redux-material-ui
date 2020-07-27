@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './login.scss'
 import * as logo from '../../assets/images/logo.jpg'
 import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
@@ -11,6 +11,9 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import AppTabs from '../../common/components/ui/tab/tab';
+import ForgotPassword from './forgotPassword';
+import ForgotVerifyCode from './forgotVerifyCode';
+import ResetPassword from './resetPassword';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -52,12 +55,27 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function Login() {
+const LoginFormState = {
+    login: 'login',
+    isForgot: 'forgot',
+    isVerify: 'verify',
+    isReset: 'reset'
+}
+
+function Login(props: any) {
 
     const classes = useStyles();
     const theme = useTheme();
 
+    const [loignState, setLoginState] = useState(LoginFormState.login);
 
+    const goNextToVerify = () => {
+        setLoginState(LoginFormState.isVerify);
+    }
+
+    const goNextToReset = () => {
+        setLoginState(LoginFormState.isReset);
+    }
 
     return (
         <>
@@ -68,7 +86,22 @@ function Login() {
                         <img className="login-logo" src={String(logo)} />
                         {/* <Typography component="h5" variant="h5">Live From Space</Typography>
                         <Typography variant="subtitle1" color="textSecondary">Mac Miller</Typography> */}
-                        <AppTabs />
+                        {
+                            (loignState === LoginFormState.login && <AppTabs />) 
+                        }
+                        {
+                            (loignState === LoginFormState.isForgot && <ForgotPassword goNextToVerify = {() => goNextToVerify}  />)
+                        }
+                        {
+                            (loignState === LoginFormState.isVerify && <ForgotVerifyCode goNextToReset = {() => goNextToReset} />)
+                        }
+                        {
+                            (loignState === LoginFormState.isReset && <ResetPassword />)
+                        }
+                        {
+                            (loignState === LoginFormState.login && <div className="link1" onClick={() => setLoginState(LoginFormState.isForgot)}>Forgot Your Password</div>)
+                        }
+                        
                     </CardContent>
                 </div>
                 <CardMedia
