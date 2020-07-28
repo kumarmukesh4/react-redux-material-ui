@@ -7,17 +7,21 @@ import Patients from './components/patients/patients';
 import Layout from './hoc/layout'
 import { localStore } from './common/services';
 import { useSelector, useDispatch } from 'react-redux'
+import { authCheckState } from './store/action';
 
 const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 
 function App() {
 
  // const [isAuthenticated, setisAuthenticated ] = useState(false);
-  const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
+  // const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
   //localStore.get('isValidUser')
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector((state: any) => state.auth.token);
+
   useEffect(() => {
-    
-  }, [])
+    dispatch(authCheckState());
+  }, [dispatch])
 
   let routes = (
 		<>

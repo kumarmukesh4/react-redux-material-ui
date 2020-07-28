@@ -3,5 +3,8 @@ export {
 } from './appointment'
 
 export {
-    authSuccess
+    auth,
+    authSuccess,
+    authCheckState,
+    logout
 } from './auth'

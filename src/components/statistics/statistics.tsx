@@ -7,21 +7,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import './statistics.scss'
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: '100%',
-        margin: '10px 0'
-    },
-    heading: {
-        fontWeight: 500,
-        textTransform: 'uppercase',
-        fontSize: '15px',
-        color: 'rgba(0, 0, 0, 0.54)',
-    },
-    count: {
-        fontSize: '70px',
-        color: '#000'
+        maxWidth: '100%'
     }
 });
 
@@ -34,13 +24,13 @@ function Statistics(props: any) {
     let pos = statistic.pos;
     return (
         <>
-            <Card className={classes.root} onClick={activateTab} data-attr={pos}>
+            <Card className='card-container' onClick={activateTab} data-attr={pos}>
                 <CardActionArea>
                     <CardContent>
-                        <Typography className={classes.heading} gutterBottom variant="h5" component="h2">
+                        <Typography className='card-heading' gutterBottom variant="h5" component="h2">
                             {statistic.title}
                     </Typography>
-                    <Typography className={classes.count} variant="body2" color="textSecondary" component="p">
+                    <Typography className='count' variant="body2" color="textSecondary" component="p">
                         <span style={{color: statistic.color}}>{statistic.count}</span>
                     </Typography>
                     </CardContent>

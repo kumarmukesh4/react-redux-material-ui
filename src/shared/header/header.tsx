@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../store/action';
+import { localStore } from '../../common/services';
 import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +18,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import * as logo from '../../assets/images/logo.jpg'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './header.scss';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,6 +33,16 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'none',
             [theme.breakpoints.up('sm')]: {
                 display: 'block',
+            },
+        },
+        username: {
+            fontSize: '14px',
+            color: 'rgba(0,0,0,0.60)',
+            position: 'relative',
+            top: '14px',
+            right: '8px',
+            [theme.breakpoints.up('sm')]: {
+                right: '2px',
             },
         },
         search: {
@@ -84,13 +98,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function Header() {
-
+    const dispatch = useDispatch();
+    const userInfo = useSelector((state: any) => state.auth.userInfo);
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+
+    useEffect(() => {
+       
+    }, [])
 
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -109,6 +129,10 @@ function Header() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const logouts = () => {
+        dispatch(logout());
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -120,7 +144,7 @@ function Header() {
             open={isMenuOpen}
             onClose={handleMenuClose}>
             {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem> */}
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={() => logouts()}> <ExitToAppIcon /> Logout</MenuItem>
         </Menu>
     );
 
@@ -134,31 +158,15 @@ function Header() {
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}>
-            <MenuItem>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     aria-label="account of current user"
                     aria-controls="primary-search-account-menu"
                     aria-haspopup="true"
                     color="inherit">
-                    <AccountCircle />
+                    <ExitToAppIcon />
                 </IconButton>
-                <p>Profile</p>
+                <p>Logout</p>
             </MenuItem>
         </Menu>
     );
@@ -167,10 +175,11 @@ function Header() {
             <AppBar position="fixed" className="app-header">
                 <Toolbar>
                     <img className="logo" src={String(logo)} />
-                    <Typography className={classes.title} variant="h6" noWrap></Typography>
+                   
 
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
+                    <Typography className={classes.username} variant="h6" noWrap><i style={{color: 'rgba(0,0,0,0.30)'}}>Welcome:</i> {userInfo.lname}, {userInfo.fName}</Typography>
                         <IconButton
                             className="profile-button"
                             edge="end"
@@ -183,6 +192,7 @@ function Header() {
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>
+                    <Typography className={classes.username} variant="h6" noWrap><i style={{color: 'rgba(0,0,0,0.30)'}}>Welcome:</i> {userInfo.lname}, {userInfo.fName}</Typography>
                         <IconButton
                             aria-label="show more"
                             aria-controls={mobileMenuId}

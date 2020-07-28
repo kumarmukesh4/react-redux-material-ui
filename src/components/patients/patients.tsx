@@ -162,7 +162,7 @@ function Patients(props: any) {
     const [dialogConfigDataOnClick, setdialogConfigDataOnClick] = useState(Object);
 
     useEffect(() => {
-        dispatch(getAppointment())
+        dispatch(getAppointment());
     }, []);
 
     const openDialog = (data: any) => {
@@ -252,7 +252,7 @@ function Patients(props: any) {
     return (
 
         <>
-           <TabContainer /> 
+            <TabContainer />
         </>
 
         /*

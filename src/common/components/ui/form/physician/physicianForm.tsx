@@ -19,7 +19,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import {Link, useHistory  } from 'react-router-dom'
 import { localStore } from '../../../../services'
 
-import {authSuccess} from '../../../../../store/action'
+import {auth} from '../../../../../store/action'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -87,7 +87,8 @@ function PhysicianForm(props: any) {
         console.log(history);
         //localStore.set('isValidUser', true);
         //history.push('/dashboard/patient');
-        dispatch(authSuccess());
+        dispatch(auth());
+       // dispatch(auth(token));
         // setisValidUsers(true);
     }
 

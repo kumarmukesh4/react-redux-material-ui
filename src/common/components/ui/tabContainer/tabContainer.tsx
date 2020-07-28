@@ -67,6 +67,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         '@media(max-width: 600px)': {
             width: '100%'
         }
+    },
+    tabs: {
+        '@media(max-width: 600px)': {
+            display: 'none'
+        }
     }
 }));
 
@@ -234,6 +239,7 @@ function TabContainer() {
         <div className={classes.root}>
             <AppBar position="static" color="default" className="tab-style">
                 <Tabs
+                    className={classes.tabs}
                     value={value}
                     onChange={handleChange}
                     indicatorColor="primary"

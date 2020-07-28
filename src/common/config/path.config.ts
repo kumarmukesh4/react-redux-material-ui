@@ -1,7 +1,8 @@
 import { API_BASE_PATH } from '../constant/constants';
 
 const API_URL = {
-    APPOINTENTS: `${API_BASE_PATH()}/appointments`
+    LOGIN: `${API_BASE_PATH()}/login`,
+    APPOINTENTS: 'http://localhost:3000/appointments'
 }    
 
 export {
