@@ -19,6 +19,7 @@ import FinalizedExam from '../../../../components/finalizedExam/finalizedExam';
 
 import DateTime from '../date-time/dateTime';
 import CancelledExam from '../../../../components/cancelledExam/cancelledExam';
+import Fallback from '../fallback/fallback';
 
 
 interface TabPanelProps {
@@ -268,7 +269,7 @@ function TabContainer() {
                     <div className="column middle">
                         <h2 className="module-heading">Upcoming Appointments</h2>
                         {
-                            APPOINTMENT_LIST.map((item: any) => {
+                            APPOINTMENT_LIST.length > 0 && APPOINTMENT_LIST.map((item: any) => {
                                 return <MuiThemeProvider theme={theme} key={item.id}>
                                     <Grid container spacing={2} style={{ display: 'initial', verticalAlign: 'text-top' }}>
                                         <Grid lg={6} item style={{ display: 'inline-block', margin: '5px', textAlign: 'left', padding: '0px 8px' }}>
@@ -279,6 +280,7 @@ function TabContainer() {
 
                             })
                         }
+                        {APPOINTMENT_LIST.length === 0 && <Fallback noDataText="No Upcoming Appointments Available" />}
 
 
                     </div>

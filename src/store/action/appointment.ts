@@ -6,6 +6,7 @@ import {
     GET_APPOINTMENT_LIST_SUCCESS,
     GET_APPOINTMENT_LIST_FAIL
 } from './action'
+import { localStore } from '../../common/services';
 
 const getAppointmentListStart = () => {
     return  {
@@ -32,19 +33,40 @@ const getAppointmentListFail = () => {
 }
 
 const getAppointment = () => {
+    const token = localStore.get('AUTH_TOKEN') || '';
+    const userInfo = JSON.parse(localStore.get('USER_INFO') || '');
+
     return (dispatch: any) => {
         dispatch(getAppointmentListStart());
         let url = API_URL['APPOINTENTS'];
-        axios.get(url)   
-            .then((res) => {
-                dispatch(getAppointmentListSuccess(res.data));
-            }) 
-            .catch((err) => {
-                dispatch(getAppointmentListFail());
-            })
-            .then(() => {
-                console.log("Always executed");
-            })
+
+        axios({
+            method: 'post',
+            url: url,
+			headers: {
+                Authorization: `JWT ${token}`
+            },
+            data: {
+                "patient_id": userInfo.patientId,
+            }
+        })
+        .then((res) => {
+            dispatch(getAppointmentListSuccess(res.data));
+            //console.log(res);
+          }, (error) => {
+            console.log(error);
+        }); 
+
+        // axios.get(url)   
+        //     .then((res) => {
+        //         dispatch(getAppointmentListSuccess(res.data));
+        //     }) 
+        //     .catch((err) => {
+        //         dispatch(getAppointmentListFail());
+        //     })
+        //     .then(() => {
+        //         console.log("Always executed");
+        //     })
     }    
 }
 export {

@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './login.scss'
 import * as logo from '../../assets/images/logo.jpg'
 import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -14,6 +15,7 @@ import AppTabs from '../../common/components/ui/tab/tab';
 import ForgotPassword from './forgotPassword';
 import ForgotVerifyCode from './forgotVerifyCode';
 import ResetPassword from './resetPassword';
+import Loader from '../../shared/loader/loader';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -66,7 +68,7 @@ function Login(props: any) {
 
     const classes = useStyles();
     const theme = useTheme();
-
+    const isLoading = useSelector((state: any) => state.auth.loading);
     const [loignState, setLoginState] = useState(LoginFormState.login);
 
     const goNextToVerify = () => {
@@ -79,7 +81,7 @@ function Login(props: any) {
 
     return (
         <>
-
+            {isLoading && (<Loader />)}
             <Card className={classes.root}>
                 <div className="login-wrapper">
                     <CardContent className={classes.content}>
