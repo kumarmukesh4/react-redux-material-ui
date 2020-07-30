@@ -47,11 +47,11 @@ const getAppointment = () => {
                 Authorization: `JWT ${token}`
             },
             data: {
-                "patient_id": userInfo.patientId,
+                "patient_id": userInfo.userId //'247439'
             }
         })
         .then((res) => {
-            dispatch(getAppointmentListSuccess(res.data));
+            dispatch(getAppointmentListSuccess(res.data.data));
             //console.log(res);
           }, (error) => {
             console.log(error);

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState, ChangeEvent } from 'react'
 import clsx from 'clsx';
 import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -15,11 +15,12 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import PersonIcon from '@material-ui/icons/Person';
-
-import {Link, useHistory  } from 'react-router-dom'
+import Alert from '@material-ui/lab/Alert';
+import { Link, useHistory } from 'react-router-dom'
 import { localStore } from '../../../../services'
 
-import {auth} from '../../../../../store/action'
+import { auth } from '../../../../../store/action'
+import AppAlert from '../../alert/appAlert';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
         withoutLabel: {
             marginTop: theme.spacing(3),
         },
+        label: {
+            fontSize: 'auto'
+        },
         textField: {
             width: '90%',
         },
@@ -44,13 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ColorButton = withStyles((theme: Theme) => ({
     root: {
-      color: theme.palette.getContrastText('#192d3e'),
-      backgroundColor: '#192d3e',
-      '&:hover': {
+        color: theme.palette.getContrastText('#192d3e'),
         backgroundColor: '#192d3e',
-      },
+        '&:hover': {
+            backgroundColor: '#192d3e',
+        },
     },
-  }))(Button);
+}))(Button);
 
 interface State {
     userName: string;
@@ -58,17 +62,35 @@ interface State {
     showPassword: boolean;
 }
 
+interface Errors {
+    userName: string;
+    password: string;
+}
+
+
 function PhysicianForm(props: any) {
     let history = useHistory();
     const classes = useStyles();
     const dispatch = useDispatch();
-
-    const [isValidUsers, setisValidUsers] = useState(localStore.get('isValidUser'))
+    const isUserExist = useSelector((state: any) => state.auth.userInfo);
+    const [isValidUsers, setisValidUsers] = useState(true);
+    let [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+    let [isFormValid, setIsFormValid] = useState<boolean>(true);
+    let alertMsg = {
+        type: '',
+        msg: ''
+    }
+    const [alertData, setAlertData] = useState(alertMsg);
 
     const [values, setValues] = React.useState<State>({
         userName: '',
         password: '',
         showPassword: false,
+    });
+
+    const [errors, setErrors] = React.useState<Errors>({
+        userName: '',
+        password: '',
     });
 
     const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,62 +105,138 @@ function PhysicianForm(props: any) {
         event.preventDefault();
     };
 
-    const validateForm = () => {
+    const handleOnBlur = (event: ChangeEvent<any>) => {
+        let formInputVal = event.target.value.trim();
+        let inputName = event.target.name;
+        switch (inputName) {
+            case 'userName':
+                if (formInputVal === '') {
+                    setErrors({
+                        ...errors,
+                        [inputName]: 'User Name required'
+                    })
+                } else {
+                    setErrors({
+                        ...errors,
+                        [inputName]: ''
+                    })
+                }
+                break;
+            case 'password':
+                if (formInputVal === '') {
+                    setErrors({
+                        ...errors,
+                        [inputName]: 'Password required'
+                    })
+                } else {
+                    setErrors({
+                        ...errors,
+                        [inputName]: ''
+                    })
+                }
+                break;
+        }
+        let checkforError = checkforErrors(errors);
+        let checkforFormValNull = checkForFormInputNull(values);
+        let isValid = (checkforError && checkforFormValNull) ? true : false;
+        setIsFormValid(!isValid);
+    }
+
+    const checkforErrors = (errors: any) => {
+        let valid = true;
+        Object.values(errors).forEach((val: any) => {
+            val.length > 0 && (valid = false);
+        })
+        return valid;
+    }
+
+    const checkForFormInputNull = (data: any) => {
+        let filled = true;
+        Object.values(data).forEach(val => {
+            val === '' && (filled = false);
+        })
+        return filled;
+    }
+
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
         console.log(history);
         //localStore.set('isValidUser', true);
         //history.push('/dashboard/patient');
-        dispatch(auth());
-       // dispatch(auth(token));
+        dispatch(auth(values));
+        // dispatch(auth(token));
         // setisValidUsers(true);
     }
 
     useEffect(() => {
-         
-    }, [])
+        if(isUserExist && !isUserExist['isUserInvalid']) {
+            setisValidUsers(isUserExist['isUserInvalid']);
+            setAlertData({
+                type: 'error',
+                msg: isUserExist['msg'] || ''
+            })
+        }
+      
+    }, [isUserExist])
+
+    // const showUserError = (
+    //     isValidUsers === false ?  <Alert severity="error" style={{padding: '0 15px'}}>Email Id or Phone does not exist!</Alert> : ''
+    // )
 
     return (
         <>
-          <form className={classes.root} noValidate autoComplete="off">
+            {/* {showUserError} */}
+
+            { isUserExist && !isUserExist['isUserInvalid'] && <AppAlert alertMsg = {alertData}  /> }
+
+            <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Enter your Username</InputLabel>
+                    <InputLabel className={classes.label} htmlFor="outlined-adornment-password">Email or Mobile Number</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
                         type="text"
+                        name="userName"
                         value={values.userName}
                         onChange={handleChange('userName')}
+                        onBlur={handleOnBlur}
+                        required={true}
                         endAdornment={
                             <InputAdornment position="end">
-                                <PersonIcon style={{color: '#838383', fontSize: '30px'}}/>
+                                <PersonIcon style={{ color: '#838383', fontSize: '30px' }} />
                             </InputAdornment>
                         }
-                        labelWidth={150}
+                        labelWidth={190}
                     />
+                    <span style={{fontSize: '11px', position: 'absolute', left: 0, bottom: '-15px', color: 'red'}}>{errors['userName']}</span>
                 </FormControl>
 
                 <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <InputLabel className={classes.label} htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
+                        name="password"
                         type={values.showPassword ? 'text' : 'password'}
                         value={values.password}
                         onChange={handleChange('password')}
+                        onBlur={handleOnBlur}
+                        label={errors["password"]}
+                        required={true}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                     aria-label="toggle password visibility"
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
+                                    edge="end">
                                     {values.showPassword ? <Visibility /> : <VisibilityOff />}
                                 </IconButton>
                             </InputAdornment>
                         }
-                        labelWidth={70}
+                        labelWidth={50}
                     />
+                    <span style={{fontSize: '11px', position: 'absolute', left: 0, bottom: '-15px', color: 'red'}}>{errors['password']}</span>
                 </FormControl>
-                <ColorButton variant="contained" color="primary" onClick={validateForm}>Login</ColorButton>
-               
+                <ColorButton type="submit" disabled={isFormValid} variant="contained" color="primary">Login</ColorButton>
             </form>
         </>
     )

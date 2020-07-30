@@ -163,24 +163,6 @@ function Patients(props: any) {
 
     useEffect(() => {
         dispatch(getAppointment());
-
-        axios({
-            method: 'post',
-            url: 'http://34.231.158.137:3001/getUpcomingAppointments',
-			headers: {
-                Authorization: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkhJTUFOU0hVTkFHUEFMMjUwNjE5OTJAR01BSUwuQ09NIiwiaWQiOjI0NzQzOSwiaWF0IjoxNTk1OTg0Njg3LCJleHAiOjE1OTYwNDQ2ODd9.LbWT7jvfidAg44ybB2I60ntlJ94ThkAusl79HfktvU8'
-            },
-            data: {
-                "patient_id":"247439",
-            }
-        })
-        .then((res) => {
-            console.log(res);
-          }, (error) => {
-            console.log(error);
-        }); 
-
-
     }, []);
 
     const openDialog = (data: any) => {

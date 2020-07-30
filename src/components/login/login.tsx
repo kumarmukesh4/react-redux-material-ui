@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './login.scss'
 import * as logo from '../../assets/images/logo.jpg'
 import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
             right: 0,
             top: 0,
             bottom: 0,
-            height: '500px',
+            height: '520px',
             [theme.breakpoints.down('sm')]: {
                 width: '100%',
                 position: 'relative'
@@ -71,13 +71,24 @@ function Login(props: any) {
     const isLoading = useSelector((state: any) => state.auth.loading);
     const [loignState, setLoginState] = useState(LoginFormState.login);
 
-    const goNextToVerify = () => {
+    const [userId, setUserId] = useState<number>();
+
+    const goNextToVerify = (id: number) => {
+        setUserId(id);
         setLoginState(LoginFormState.isVerify);
     }
 
+    
+
     const goNextToReset = () => {
+        console.log('IsReset');
         setLoginState(LoginFormState.isReset);
     }
+
+    const backToLogin = () => {
+        setLoginState(LoginFormState.login);
+    }
+
 
     return (
         <>
@@ -92,13 +103,13 @@ function Login(props: any) {
                             (loignState === LoginFormState.login && <AppTabs />) 
                         }
                         {
-                            (loignState === LoginFormState.isForgot && <ForgotPassword goNextToVerify = {() => goNextToVerify}  />)
+                            (loignState === LoginFormState.isForgot && <ForgotPassword goNextToVerify = {goNextToVerify}  />)
                         }
                         {
-                            (loignState === LoginFormState.isVerify && <ForgotVerifyCode goNextToReset = {() => goNextToReset} />)
+                            (loignState === LoginFormState.isVerify && <ForgotVerifyCode userId ={userId} goNextToReset = {goNextToReset} />)
                         }
                         {
-                            (loignState === LoginFormState.isReset && <ResetPassword />)
+                            (loignState === LoginFormState.isReset && <ResetPassword userId ={userId} backToLogin = {backToLogin}  />)
                         }
                         {
                             (loignState === LoginFormState.login && <div className="link1" onClick={() => setLoginState(LoginFormState.isForgot)}>Forgot Your Password</div>)

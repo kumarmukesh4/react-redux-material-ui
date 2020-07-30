@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Theme, createStyles, makeStyles, withStyles } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux'
 import clsx from 'clsx';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -17,6 +18,7 @@ import { Tooltip } from '@material-ui/core';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import Loader from '../../shared/loader/loader';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: '3px'
         },
         modality: {
-            backgroundColor: '#61dafb',
             padding: '3px 20px',
             borderRadius: '3px',
             fontSize: '12px',
@@ -92,6 +93,7 @@ function PatientData(props: any) {
     const [isDialogOpen, setisDialogOpen] = useState(false);
     const [dialogConfig, setisdialogConfig] = useState(dialogConfigData);
     const [dialogConfigDataOnClick, setdialogConfigDataOnClick] = useState(Object);
+    const isLoading = useSelector((state: any) => state.appointment.loading);
     const classes = useStyles();
 
     const ColorButton = withStyles((theme: Theme) => ({
@@ -128,7 +130,7 @@ function PatientData(props: any) {
 
     return (
         <>
-
+            {isLoading && (<Loader />)}
             <ExpansionPanel defaultExpanded ={false}  >
                 <ExpansionPanelSummary 
                     expandIcon={<ExpandMoreIcon  />}
@@ -137,15 +139,15 @@ function PatientData(props: any) {
                     <div className={classes.column}>
                         <div className="date-row">
                           <span className="date-txt">
-                             <span>Date:</span> {appointmentData.date}
+                             <span>Date:</span> {appointmentData.scheduling_date}
                           </span>
                           <span className="time-txt">
-                           <span>Time:</span> {appointmentData.time}
+                           <span>Time:</span> {appointmentData.time_from}
                           </span>
                         </div>
                         <div className="column-row three-column">
                             <div className="col">
-                                <Typography className={classes.modality}>{appointmentData.modality} </Typography>
+                                <Typography className={classes.modality} style={{backgroundColor: `#${appointmentData.modality_color}`}}>{appointmentData.modality} </Typography>
                             </div>
                             <div className="col">
                                  <Typography className={classes.heading}><strong>{appointmentData.exam}</strong></Typography>

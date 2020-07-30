@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import clsx from 'clsx';
+import axios from 'axios';
 import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
@@ -12,6 +13,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { Link, useHistory } from 'react-router-dom'
+import AppAlert from '../../common/components/ui/alert/appAlert';
+import { API_URL } from '../../common/config';
+import Loader from '../../shared/loader/loader';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,17 +55,26 @@ interface State {
     showRepasssword: boolean
 }
 
-function ResetPassword() {
-
+function ResetPassword(props: any) {
+    const {userId, backToLogin} = props;
     let history = useHistory();
     const classes = useStyles();
-
+    let alertMsg = {
+        type: '',
+        msg: ''
+    }
+    const [isLoading, setIsLoading] = useState(false);
+    const [alertData, setAlertData] = useState(alertMsg);
+    const [isMatch, setIsMatch] = useState(true);
+    const [isPasswordSave, setIsPasswordSave] = useState(false);
     const [values, setValues] = React.useState<State>({
         password: '',
         showPassword: false,
         repassword: '',
         showRepasssword: false
     });
+
+  
 
     const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -79,14 +92,56 @@ function ResetPassword() {
         event.preventDefault();
     };
 
-    const validateForm = () => {
+    const handleSubmit = (event: any) => {
+        event?.preventDefault();
+        setIsLoading(true);
+        let url = API_URL['SAVE_RESET_PASSWORD'];
+        if (values.password !== values.repassword) {
+            setIsLoading(false);
+            setIsMatch(false);
+            setAlertData({
+                type: 'error',
+                msg: 'Password does not match'
+            })
+        } else {
+            setIsMatch(false);
+            
+            axios({
+                method: 'post',
+                url: url,
+                data: {
+                    "patient_id": userId, 
+                    "password": values.password
+                }
+            })
+            .then((res) => {
+                setIsLoading(false);
+                setAlertData({
+                    type: 'success',
+                    msg: res.data.message
+                })
+                setIsPasswordSave(true);
+                setValues({
+                    password: '',
+                    showPassword: false,
+                    repassword: '',
+                    showRepasssword: false
+                })
+            }, (error) => {
+                setIsLoading(false);
+                setIsPasswordSave(false);
+            });
+        }
+         
     }
 
     return (
         <>
+            {isLoading && (<Loader />)}
             <Typography component="h5" variant="h5">Forgot Password?</Typography>
             <Typography variant="subtitle1" color="textSecondary">Please enter your new password.</Typography>
-            <form className={classes.root} noValidate autoComplete="off">
+            { !isMatch && <AppAlert alertMsg = {alertData}  /> }
+            <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
                     <InputLabel htmlFor="new-password">New Password</InputLabel>
                     <OutlinedInput
@@ -133,9 +188,10 @@ function ResetPassword() {
                     />
                 </FormControl>
 
-                <ColorButton variant="contained" color="primary" onClick={validateForm}>Change Password</ColorButton>
+                <ColorButton type="submit" variant="contained" color="primary">Change Password</ColorButton>
 
             </form>
+            {isPasswordSave && <div className="link1 m-t-10" onClick={backToLogin}>Re-Login</div>}
         </>
     )
 }

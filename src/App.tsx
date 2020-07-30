@@ -5,6 +5,7 @@ import Login from './components/login/login';
 import Layout from './hoc/layout'
 import { useSelector, useDispatch } from 'react-redux'
 import { authCheckState } from './store/action';
+import Loader from './shared/loader/loader';
 
 const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 
@@ -38,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-			<Suspense fallback='Loading'>{routes}</Suspense>
+			<Suspense fallback={<Loader />}>{routes}</Suspense>
     </div>
   );
 }

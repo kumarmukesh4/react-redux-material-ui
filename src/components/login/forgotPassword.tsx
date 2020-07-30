@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
+import axios from 'axios';
 import clsx from 'clsx';
 import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -10,6 +11,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import './login.scss'
+import AppAlert from '../../common/components/ui/alert/appAlert';
+import { API_URL } from '../../common/config'
+import Loader from '../../shared/loader/loader';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
         textField: {
             width: '90%',
         },
+        subheading: {
+            fontSize: '14px'
+        }
     }),
 );
 
@@ -46,6 +53,16 @@ function ForgotPassword(props: any) {
     const classes = useStyles();
     const {goNextToVerify} = props;
 
+    let alertMsg = {
+        type: '',
+        msg: ''
+    }
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [alertData, setAlertData] = useState(alertMsg);
+
+    const [isInValid, setIsInValid] = useState(false);
+
     const [values, setValues] = React.useState<State>({
         userName: ''
     });
@@ -54,16 +71,50 @@ function ForgotPassword(props: any) {
         setValues({ ...values, [prop]: event.target.value });
     }
 
-    const validateForm = () => {
+   
+    let userid = '';
+    const handleSubmit = (event: any) => {
+        event?.preventDefault();
+        setIsLoading(true);
+        let url = API_URL['FORGOT_PASSWORD'];
+        
+        axios({
+            method: 'post',
+            url: url,
+            data: {
+                "email": values.userName //"himanshunagpal25061992@gmail.com"
+            }
+        })
+        .then((res) => {
+            setIsLoading(false);
+            const resData = res.data;
+            if(resData.response === true) {
+                userid = resData.data;
+                goNextToVerify(userid);
+            } else {
+                setIsLoading(false);
+                setAlertData({
+                    type: 'error',
+                    msg: resData.message
+                })
+                setIsInValid(true);
+            }
+             
+          }, (error) => {
+            setIsLoading(false);
+            console.log(error);
+        });
+         
     }
 
     return (
         <>
+            {isLoading && (<Loader />)}
             <Typography component="h5" variant="h5">Forgot Password?</Typography>
-            <Typography variant="subtitle1" color="textSecondary">Please enter your registered email ID.</Typography>
-            <Typography variant="subtitle1" color="textSecondary">We will send a verification code to your registered email ID</Typography>
-
-            <form className={classes.root} noValidate autoComplete="off">
+            <Typography className={classes.subheading} variant="subtitle1" color="textSecondary">Please enter your registered email ID.</Typography>
+            <Typography className={classes.subheading} variant="subtitle1" color="textSecondary">We will send a verification code to your registered email ID</Typography>
+            { isInValid && <AppAlert alertMsg = {alertData}  /> }
+            <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
                     <InputLabel htmlFor="emailmobile">Email or Mobile</InputLabel>
                     <OutlinedInput
@@ -79,7 +130,7 @@ function ForgotPassword(props: any) {
                         labelWidth={150}
                     />
                 </FormControl>
-                <ColorButton variant="contained" color="primary" onClick={goNextToVerify()}>Next</ColorButton>
+                <ColorButton type="submit" variant="contained" color="primary">Next</ColorButton>
             </form>
         </>
     )

@@ -47,7 +47,7 @@ const logout = () => {
 };
 
 // get token
-const auth = () => {
+const auth = (user: any) => {
     return (dispatch: any) => {
         dispatch(authStart());
         let url = API_URL['LOGIN'];
@@ -55,26 +55,35 @@ const auth = () => {
         axios({
             method: 'post',
             url: url,
+            headers: {
+                'Content-Type': 'application/json'
+            },
             data: {
-                "email": "himanshunagpal25061992@gmail.com",
-                "password": "12345678"
+                "email": user.userName, //"himanshunagpal25061992@gmail.com",
+                "password": user.password
             }
         })
             .then((res) => {
                 let userdata = res.data;
 
-                localStore.set('AUTH_TOKEN', userdata.data.token);
+                if(userdata.data) {
+                    localStore.set('AUTH_TOKEN', userdata.data.token);
 
-                const userInfo = {
-                    fName: userdata.data.fname,
-                    lname: userdata.data.lname,
-                    patientId: userdata.data.patient_id,
-                    mail: userdata.data.mail
-                };
-
-                localStore.set('USER_INFO', JSON.stringify(userInfo));
-                dispatch(authSuccess(userdata.data.token, userInfo));
-
+                    const userInfo = {
+                        fName: userdata.data.fname,
+                        lname: userdata.data.lname,
+                        userId: userdata.data.id,
+                        mail: userdata.data.mail
+                    };
+                    localStore.set('USER_INFO', JSON.stringify(userInfo));
+                    dispatch(authSuccess(userdata.data.token, userInfo));
+                } else {
+                    const errorInfo = {
+                        isUserInvalid: userdata.response,
+                        msg: userdata.message
+                    }
+                    dispatch(authSuccess('', errorInfo));
+                }
                 console.log(res);
 
             }, (error) => {
