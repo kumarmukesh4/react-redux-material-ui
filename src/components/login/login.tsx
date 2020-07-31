@@ -103,7 +103,7 @@ function Login(props: any) {
                             (loignState === LoginFormState.login && <AppTabs />) 
                         }
                         {
-                            (loignState === LoginFormState.isForgot && <ForgotPassword goNextToVerify = {goNextToVerify}  />)
+                            (loignState === LoginFormState.isForgot && <ForgotPassword backToLogin = {backToLogin} goNextToVerify = {goNextToVerify}  />)
                         }
                         {
                             (loignState === LoginFormState.isVerify && <ForgotVerifyCode userId ={userId} goNextToReset = {goNextToReset} />)
@@ -112,7 +112,7 @@ function Login(props: any) {
                             (loignState === LoginFormState.isReset && <ResetPassword userId ={userId} backToLogin = {backToLogin}  />)
                         }
                         {
-                            (loignState === LoginFormState.login && <div className="link1" onClick={() => setLoginState(LoginFormState.isForgot)}>Forgot Your Password</div>)
+                            (loignState === LoginFormState.login && <div className="link1" onClick={() => setLoginState(LoginFormState.isForgot)} style={{position: 'relative', top: '-14px'}}>Forgot Your Password</div>)
                         }
                         
                     </CardContent>

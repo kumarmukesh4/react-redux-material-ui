@@ -6,6 +6,7 @@ const API_URL = {
     FORGOT_PASSWORD: `${API_BASE_PATH()}/forgotpasswordAction`,
     CHECK_OTP: `${API_BASE_PATH()}/checkOtp`,
     SAVE_RESET_PASSWORD: `${API_BASE_PATH()}/saveResetPassAction`,
+    VIEW_DOCUMENT: `${API_BASE_PATH()}/viewPatientAttachments`,
     
 }    
 

@@ -51,7 +51,7 @@ interface State {
 
 function ForgotPassword(props: any) {
     const classes = useStyles();
-    const {goNextToVerify} = props;
+    const {goNextToVerify, backToLogin} = props;
 
     let alertMsg = {
         type: '',
@@ -132,6 +132,7 @@ function ForgotPassword(props: any) {
                 </FormControl>
                 <ColorButton type="submit" variant="contained" color="primary">Next</ColorButton>
             </form>
+            { <div className="link1 m-t-10" onClick={backToLogin}>Back</div>}
         </>
     )
 }

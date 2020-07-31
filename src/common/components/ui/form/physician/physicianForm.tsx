@@ -210,17 +210,18 @@ function PhysicianForm(props: any) {
                     <span style={{fontSize: '11px', position: 'absolute', left: 0, bottom: '-15px', color: 'red'}}>{errors['userName']}</span>
                 </FormControl>
 
+                
+                
+
                 <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                    <InputLabel className={classes.label} htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
-                        name="password"
                         type={values.showPassword ? 'text' : 'password'}
                         value={values.password}
+                        name="password"
                         onChange={handleChange('password')}
                         onBlur={handleOnBlur}
-                        label={errors["password"]}
-                        required={true}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -232,10 +233,10 @@ function PhysicianForm(props: any) {
                                 </IconButton>
                             </InputAdornment>
                         }
-                        labelWidth={50}
+                        labelWidth={70}
                     />
                     <span style={{fontSize: '11px', position: 'absolute', left: 0, bottom: '-15px', color: 'red'}}>{errors['password']}</span>
-                </FormControl>
+                </FormControl>        
                 <ColorButton type="submit" disabled={isFormValid} variant="contained" color="primary">Login</ColorButton>
             </form>
         </>

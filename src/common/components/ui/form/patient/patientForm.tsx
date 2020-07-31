@@ -113,7 +113,6 @@ function PatientForm() {
                     />
                 </FormControl>
                 <ColorButton variant="contained" color="primary">Login</ColorButton>
-                <div className="link1">Forgot Your Password</div>
             </form>
 
         </>

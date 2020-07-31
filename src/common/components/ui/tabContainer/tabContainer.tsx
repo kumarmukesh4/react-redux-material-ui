@@ -232,6 +232,57 @@ function TabContainer() {
         }
     ]
 
+    // APPOINTMENT_LIST = [
+    //     {
+    //         "id": 1,
+    //         "location": "Hollywood",
+    //         "modality": "MRI",
+    //         "exam": "ANKLE W/O",
+    //         "date": "07-20-2020",
+    //         "time": "10:30am"
+    //     },
+    //     {
+    //         "id": 2,
+    //         "location": "Hollywood",
+    //         "modality": "MRI",
+    //         "exam": "ANKLE W/O",
+    //         "date": "07-20-2020",
+    //         "time": "9:30am"
+    //     },
+    //     {
+    //         "id": 3,
+    //         "location": "Hollywood",
+    //         "modality": "MRI",
+    //         "exam": "ANKLE W/O",
+    //         "date": "07-20-2020",
+    //         "time": "8:30am"
+    //     },
+    //     {
+    //         "id": 4,
+    //         "location": "Hollywood",
+    //         "modality": "MRI",
+    //         "exam": "ANKLE W/O",
+    //         "date": "07-20-2020",
+    //         "time": "8:30am"
+    //     },
+    //     {
+    //         "id": 5,
+    //         "location": "Hollywood",
+    //         "modality": "MRI",
+    //         "exam": "ANKLE W/O",
+    //         "date": "07-20-2020",
+    //         "time": "8:30am"
+    //     },
+    //     {
+    //         "id": 6,
+    //         "location": "Hollywood",
+    //         "modality": "MRI",
+    //         "exam": "ANKLE W/O",
+    //         "date": "07-20-2020",
+    //         "time": "8:30am"
+    //     }
+    // ]
+
     const activateParentTab = (event: any) => {
         let num =  Number(event.currentTarget.getAttribute('data-attr'));
         setValue(num);
