@@ -49,7 +49,7 @@ function AppDialog(Props: any) {
                     onClose={handleClose} 
                     aria-labelledby="form-dialog-title" 
                     TransitionComponent={Transition}>
-                <DialogTitle id="form-dialog-title">{dialogConfig.title}</DialogTitle>
+                <DialogTitle id="form-dialog-title">{dialogConfig.title} </DialogTitle>
                 <DialogContent>
                      {Props.children}
                 </DialogContent>
