@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import './tab.scss';
-import PatientForm from '../form/patient/patientForm';
-import PhysicianForm from '../form/physician/physicianForm';
+import PatientForm from '../form/physician/physicianForm';
+import PhysicianForm from '../form/patients/patientForm';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -84,10 +84,10 @@ function AppTabs(props: any) {
                 index={value}
                 onChangeIndex={handleChangeIndex}>
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <PhysicianForm />
+                      <PatientForm />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <PatientForm />
+                      <PhysicianForm />
                  </TabPanel>
                
             </SwipeableViews>

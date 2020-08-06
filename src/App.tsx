@@ -14,6 +14,15 @@ function App() {
     const isAuthenticated = useSelector((state: any) => state.auth.token);
 
   useEffect(() => {
+  //   const userInfo = {
+  //     fName: 'Mukesh',
+  //     lname: 'kumar',
+  //     userId: 'id',
+  //     mail: 'kumarmukesh4@gmail.com'
+  // };
+  // localStorage.setItem('AUTH_TOKEN', 'ababbabababj');
+  //   localStorage.setItem('USER_INFO', JSON.stringify(userInfo));
+
     dispatch(authCheckState());
   }, [dispatch])
 

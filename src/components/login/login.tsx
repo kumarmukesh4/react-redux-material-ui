@@ -16,6 +16,8 @@ import ForgotPassword from './forgotPassword';
 import ForgotVerifyCode from './forgotVerifyCode';
 import ResetPassword from './resetPassword';
 import Loader from '../../shared/loader/loader';
+import ViewDocuments from '../viewDocuments/viewDocuments';
+import ViewDoc from '../viewDocuments/viewDoc';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -97,8 +99,9 @@ function Login(props: any) {
                 <div className="login-wrapper">
                     <CardContent className={classes.content}>
                         <img className="login-logo" src={String(logo)} />
-                        {/* <Typography component="h5" variant="h5">Live From Space</Typography>
-                        <Typography variant="subtitle1" color="textSecondary">Mac Miller</Typography> */}
+
+                        {/* <ViewDoc /> */}
+                                            
                         {
                             (loignState === LoginFormState.login && <AppTabs />) 
                         }

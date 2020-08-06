@@ -72,6 +72,12 @@ body {
   }
 }
 
+.login-input {
+   input {
+     padding-right: 56px;
+   }
+}
+
 @media only screen and (max-width: 600px) {
   .content-container {
     padding: 0;

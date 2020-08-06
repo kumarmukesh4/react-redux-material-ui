@@ -111,7 +111,7 @@ function ViewDocuments(props: any) {
 
 
     const showAttachment = (src: string) => {
-        console.log(src);
+       
     }
 
 

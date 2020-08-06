@@ -22,6 +22,7 @@ import AppDialog from '../../common/components/ui/dialog/appDialog'
 import Loader from '../../shared/loader/loader';
 import UploadDocuments from '../uploadDocuments/uploadDocuments';
 import ViewDocuments from '../viewDocuments/viewDocuments';
+import ViewDoc from '../viewDocuments/viewDoc';
 import UploadDocument from '../uploadDocuments/uploadDocument';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -80,7 +81,7 @@ const dialogConfigData = [
     },
     {
         view: {
-            title: 'View Document'
+            title: 'Patient Name: Daniel, Robert'
         }
     },
     {
@@ -186,17 +187,18 @@ function PatientData(props: any) {
 
             {
                 isDialogOpen && dialogType === 'view' &&
-                <AppDialog showActionRow={false} size={'xs'} dialogConfig={dialogConfigDataOnClick} isOpenDialog={isDialogOpen} closeDialog={closeDialog}>
+                <AppDialog isScrolable="false" showActionRow={false} size={'xs'} dialogConfig={dialogConfigDataOnClick} isOpenDialog={isDialogOpen} closeDialog={closeDialog}>
                     <div style={{textAlign: 'center'}}>
                         {/* <UploadDocuments /> */}
                         <ViewDocuments examId = {appointmentData.exam_id} />
+                        {/* <ViewDoc examId = {appointmentData.exam_id} /> */}
                     </div>
                 </AppDialog>
             }
 
             {
                 isDialogOpen && dialogType === 'upload' &&
-                <AppDialog showActionRow={true} size={'sm'} dialogConfig={dialogConfigDataOnClick} isOpenDialog={isDialogOpen} closeDialog={closeDialog}>
+                <AppDialog isScrolable="true" showActionRow={true} size={'sm'} dialogConfig={dialogConfigDataOnClick} isOpenDialog={isDialogOpen} closeDialog={closeDialog}>
                     <div style={{textAlign: 'center'}}>
                         {/* <UploadDocuments /> */}
                         <UploadDocument  />

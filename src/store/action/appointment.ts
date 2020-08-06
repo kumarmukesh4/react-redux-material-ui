@@ -52,21 +52,9 @@ const getAppointment = () => {
         })
         .then((res) => {
             dispatch(getAppointmentListSuccess(res.data.data));
-            //console.log(res);
           }, (error) => {
-            console.log(error);
+            dispatch(getAppointmentListFail());
         }); 
-
-        // axios.get(url)   
-        //     .then((res) => {
-        //         dispatch(getAppointmentListSuccess(res.data));
-        //     }) 
-        //     .catch((err) => {
-        //         dispatch(getAppointmentListFail());
-        //     })
-        //     .then(() => {
-        //         console.log("Always executed");
-        //     })
     }    
 }
 export {

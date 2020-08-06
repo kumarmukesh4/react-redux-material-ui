@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       margin: theme.spacing(1),
     },
+    scrollable: {
+      overflow: 'auto',
+      height: '300px'
+    }
   }),
 );
 
@@ -29,7 +33,7 @@ const Transition = React.forwardRef(function Transition(
 
 function AppDialog(Props: any) {
     const classes = useStyles();
-    const { isOpenDialog, closeDialog, dialogConfig, size, showActionRow } = Props;
+    const { isOpenDialog, closeDialog, dialogConfig, size, showActionRow, isScrolable } = Props;
     const [open, setOpen] = React.useState(isOpenDialog);
     const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>(size);
     const [fullWidth, setFullWidth] = React.useState(true);
@@ -50,7 +54,7 @@ function AppDialog(Props: any) {
                     aria-labelledby="form-dialog-title" 
                     TransitionComponent={Transition}>
                 <DialogTitle id="form-dialog-title">{dialogConfig.title} </DialogTitle>
-                <DialogContent>
+                <DialogContent className={classes.scrollable}>
                      {Props.children}
                 </DialogContent>
                 {
